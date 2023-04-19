@@ -5,5 +5,3 @@ This library for Machine Learning Model:
 +, Gause Distribution
 +, Laplace Techinal 
 - Decision Tree
-- Logistic Regression
-- 
