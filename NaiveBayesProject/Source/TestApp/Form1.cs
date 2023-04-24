@@ -20,7 +20,6 @@ namespace TestApp
             InitializeComponent();
 
             ml_naivebaye = new NaiveBayes();
-        
         }
 
         /// <summary>
@@ -29,6 +28,7 @@ namespace TestApp
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
+
         {
             ml_naivebaye.Initialization();
         }
@@ -50,17 +50,12 @@ namespace TestApp
 
         private void button5_Click(object sender, EventArgs e)
         {
-
-
-
             ml_naivebaye.SaveModel();
         }
 
         private void button6_Click(object sender, EventArgs e)
+        
         {
-
-
-
             ml_naivebaye.LoadModel();
         }
     }

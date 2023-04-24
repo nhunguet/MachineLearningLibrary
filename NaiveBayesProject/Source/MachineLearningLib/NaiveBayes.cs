@@ -1,49 +1,106 @@
-﻿using System;
+﻿////import library 
+///
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MachineLearningLib
 {
     public class NaiveBayes
+   
     {
 
         #region Properties
-        private int num_class = 0;
-        private int num_features = 0;
-        private int num_samples = 0;
-
-        private double[,] data = null;
+        
+       // private int num_class = 0;
+        //private int num_features = 0;
+        //private int num_samples = 0;
+       // private double[,] data = null;
+        
         #endregion
 
         #region Constructor / Destructor
+        
+
         public NaiveBayes() 
+        
         {
             
         }
-
         #endregion
 
         #region Initialization
+        
         public void Initialization()
+        
         {
-            num_class = 3;
-            num_features = 4;
-            data = new double[num_class, num_features];
+            int num_class = 3;
+            int num_features = 4;
+            
+            //data = new double[num_class, num_features];
 
+            int N = 117;
+
+            // Load Input Data
+            
+            string fn = "D:/Data/IrisDataTrainning.txt";
+            
+            
+            /*int N_feature = 5;
+            int N_class = 3;
+            int N = 150;*/
+            
+
+            //return data;
             // Load data
-            num_samples = LoadData();
+            // num_samples = LoadData();
         }
 
-        private int LoadData()
+        public double[][] LoadData(string fn, int rows, int cols, char delimit)
+
         {
             // Load data from file to data variable
+            
             // data
+            
+            double[][] result = MatrixString(rows, cols);
+            
+            FileStream ifs = new FileStream(fn, FileMode.Open);
+            StreamReader sr = new StreamReader(ifs);
+
+            string[] tokens = null;
+            string line = null; 
+            int i = 0;
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                tokens = line.Split(delimit);
+                for (int j = 0; j < cols; ++j)
+                    result[i][j] = tokens[i][j];
+                ++i;
+            }
+            sr.Close(); ifs.Close();
+            return result;
+
+         //   return data.Length;
+        }
 
 
-            return data.Length;
+        /// <summary>
+        /// Function 
+        /// </summary>
+
+        public double[][] MatrixString(int rows, int cols)
+        {
+            double[][] result = new double[rows][];
+            for (int i = 0; i < rows; ++i)
+                result[i] = new double[cols];
+            return result;
         }
         #endregion
 
@@ -57,14 +114,19 @@ namespace MachineLearningLib
         #region Training
         public void Training()
         {
+        
+            double[][] data = LoadData(fn, N, num_features + 1, ',');
             // mean calculation
             var means = MeanCalculation(data);
+
 
             // varian calucatio
             var varians = VarianCalculation(data);
 
+
             //gause properties
             var gauges = GaugeCalculation(means, varians);
+
 
         }
 
@@ -77,30 +139,22 @@ namespace MachineLearningLib
         {
             // 1. compute means 
             double[,] means = new double[1,1];  // [class][predictor]
-            //for (int c = 0; c < N_class; ++c)
-            //    means[c] = new double[N_feature];
-
-            //for (int i = 0; i < N; ++i)
-            //{
-            //    int c = (int)data[i][N_feature];
-            //    for (int j = 0; j < N_feature; ++j)  // ht, wt, foot
-            //        means[c][j] += data[i][j];
-            //}
-
-            //for (int c = 0; c < N_class; ++c)
-            //{
-            //    for (int j = 0; j < N_feature; ++j)
-            //        means[c][j] /= classCts[c];
-            //}
             return means;
+
         }
 
         /// <summary>
         /// Calculate varian for data
+        /// 
+        /// 
         /// </summary>
         /// <param name="input_data"></param>
         /// <returns></returns>
+        
+
         private double[,] VarianCalculation(double[,] input_data)
+
+        
         {
             double[,] varians = new double[1, 1];
 
@@ -110,6 +164,8 @@ namespace MachineLearningLib
         /// <summary>
         /// calculate gague for data
         /// </summary>
+        /// 
+        /// 
         /// <param name="means"></param>
         /// <param name="varians"></param>
         /// <returns></returns>
