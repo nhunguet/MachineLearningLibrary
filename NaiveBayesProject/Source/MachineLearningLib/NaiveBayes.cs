@@ -16,11 +16,44 @@ namespace MachineLearningLib
     {
 
         #region Properties
-        
-       // private int num_class = 0;
-        //private int num_features = 0;
-        //private int num_samples = 0;
-       // private double[,] data = null;
+      
+        public int Num_class   // property
+        {
+            get { return num_class; }   // get method
+            set { num_class = value; }  // set method
+        }
+
+        /// <summary>
+        /// 
+        /// set Number of Features 
+        /// 
+        /// </summary>
+        private int num_features;
+
+
+        public int Num_features// property
+
+        {
+            get { return num_features; }   // get method
+
+            set { num_features = value; }  // set method
+        }
+
+        private int num_samples;
+
+
+        /// <summary>
+        /// //////
+        /// Set Num of samples 
+        /// </summary>
+        public int Num_samples// property
+
+        {
+            get { return num_samples; }   // get method
+            set { num_samples = value; }  // set method
+        }
+
+
         
         #endregion
 
