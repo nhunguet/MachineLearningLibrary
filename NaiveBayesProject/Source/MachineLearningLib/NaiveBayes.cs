@@ -72,26 +72,14 @@ namespace MachineLearningLib
         public void Initialization()
         
         {
-            int num_class = 3;
-            int num_features = 4;
             
-            //data = new double[num_class, num_features];
-
-            int N = 117;
-
+            
             // Load Input Data
-            
-            string fn = "D:/Data/IrisDataTrainning.txt";
-            
-            
-            /*int N_feature = 5;
-            int N_class = 3;
-            int N = 150;*/
-            
-
+            NaiveBayes p = new NaiveBayes();
+            string fn = "../Data/IrisDataTrainning.txt";
+            string[][] data = p.LoadData(fn, num_samples, num_features, ',');
+            MessageBox.Show("Done Load Data");
             //return data;
-            // Load data
-            // num_samples = LoadData();
         }
 
         public double[][] LoadData(string fn, int rows, int cols, char delimit)
