@@ -1,4 +1,4 @@
-﻿////import library 
+////import library 
 ///
 
 using System;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace MachineLearningLib
 {
@@ -16,8 +17,10 @@ namespace MachineLearningLib
     {
 
         #region Properties
-      
+        private int num_class;
+        
         public int Num_class   // property
+
         {
             get { return num_class; }   // get method
             set { num_class = value; }  // set method
@@ -54,11 +57,16 @@ namespace MachineLearningLib
         }
 
 
-        
         #endregion
 
         #region Constructor / Destructor
-        
+        private double[][] data;
+        public double[][] Data
+        {
+
+            get { return data; }
+            set { this.data = value; }
+        }
 
         public NaiveBayes() 
         
@@ -68,18 +76,27 @@ namespace MachineLearningLib
         #endregion
 
         #region Initialization
-        
+
         public void Initialization()
-        
+
         {
-            
-            
             // Load Input Data
+         
             NaiveBayes p = new NaiveBayes();
-            string fn = "../Data/IrisDataTrainning.txt";
-            string[][] data = p.LoadData(fn, num_samples, num_features, ',');
+        
+            p.num_class = 3;
+            
+            p.num_features = 4;
+            
+            p.num_samples = 117;
+
+            string fn = "D:/Data/IrisDataTrainning.txt";
+            
+            double[][] data = p.LoadData(fn, num_samples, num_features, ',');
+            
             MessageBox.Show("Done Load Data");
-            //return data;
+            
+          //  return data;
         }
 
         public double[][] LoadData(string fn, int rows, int cols, char delimit)
@@ -128,25 +145,51 @@ namespace MachineLearningLib
         #region Setting
         public void Setting()
         {
+
+
             // do setting 
+            // Get Param 
         }
         #endregion
 
         #region Training
         public void Training()
         {
-        
-            double[][] data = LoadData(fn, N, num_features + 1, ',');
+
+            int[] classCts = new int[num_class];
+
+
             // mean calculation
-            var means = MeanCalculation(data);
+
+            /// Caculate the mean of every feature 
+            ///
+            
+
+            //var means = MeanCalculation(data);
 
 
-            // varian calucatio
-            var varians = VarianCalculation(data);
+
+            double[][] means = new double[num_class][];  // 3 calsses => 
+
+            //////////////////////////////////////////////////
+
+            for (int c = 0; c < num_class; ++c)
+                means[c] = new double[num_features];
 
 
-            //gause properties
-            var gauges = GaugeCalculation(means, varians);
+
+            ////
+            ///
+
+            double[][] condProbs = new double[num_class][];
+
+
+            NaiveBayes p = new NaiveBayes();
+
+
+            for (int c = 0; c < num_class; ++c)
+                condProbs[c] = new double[num_features];
+
 
 
         }
@@ -156,12 +199,11 @@ namespace MachineLearningLib
         /// </summary>
         /// <param name="input_data"></param>
         /// <returns></returns>
-        private double[,] MeanCalculation(double[,] input_data)
+        private double[,] MeanCalculation(double[,] in_data)
         {
             // 1. compute means 
             double[,] means = new double[1,1];  // [class][predictor]
             return means;
-
         }
 
         /// <summary>
@@ -204,7 +246,6 @@ namespace MachineLearningLib
             //
 
             //
-
 
         }
         #endregion
